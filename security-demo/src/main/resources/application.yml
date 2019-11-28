@@ -1,0 +1,21 @@
+server:
+  port: 8181
+
+spring:
+  session:
+    store-type: none
+  thymeleaf:
+    cache: false
+
+
+com:
+  security:
+    learn:
+      browser:
+        loginPage: login.html
+      code:
+        image:
+          length: 5
+          width: 200
+          height: 30
+          url: /user,/user/*
