@@ -1,9 +1,12 @@
 server:
   port: 8181
-
 spring:
   session:
     store-type: none
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springcloud_sellsecurity
+    username: root
   thymeleaf:
     cache: false
 
