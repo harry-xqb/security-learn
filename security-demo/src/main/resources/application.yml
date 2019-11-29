@@ -4,12 +4,12 @@ spring:
   session:
     store-type: none
   datasource:
-    driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/springcloud_sellsecurity
-    username: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/security_learn?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    username: harry
+    password: 123456
   thymeleaf:
     cache: false
-
 
 com:
   security:
@@ -18,7 +18,14 @@ com:
         loginPage: login.html
       code:
         image:
-          length: 5
           width: 200
           height: 30
-          url: /user,/user/*
+#          url: /user,/user/*
+        sms:
+          length: 4
+          exireIn: 3600
+        aliyun:
+          accessKey: LTAI4FhPKhz4CPujbNWUpR2p
+          accessSecret: acXSBPGjPBe4vM0CLyOzi0bd0CeTMo
+          templateCode: SMS_179150287
+          signName: Ebike

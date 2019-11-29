@@ -28,7 +28,7 @@ import java.util.Set;
  */
 @Component
 @Log
-public class ValidateCodeFilter extends OncePerRequestFilter implements InitializingBean {
+public class ImageCodeFilter extends OncePerRequestFilter implements InitializingBean {
 
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
     @Autowired
@@ -40,8 +40,10 @@ public class ValidateCodeFilter extends OncePerRequestFilter implements Initiali
     @Override
     public void afterPropertiesSet() throws ServletException {
         String[] configUrls = StringUtils.splitByWholeSeparator(securityProperties.getCode().getImage().getUrl(), ",");
-        for(String url: configUrls){
-            urls.add(url);
+        if(configUrls != null){
+            for(String url: configUrls){
+                urls.add(url);
+            }
         }
         urls.add("/authentication/form");
     }

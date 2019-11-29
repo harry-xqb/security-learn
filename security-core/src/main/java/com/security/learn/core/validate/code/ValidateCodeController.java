@@ -1,12 +1,18 @@
 package com.security.learn.core.validate.code;
 
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.learn.core.property.SecurityProperties;
+import com.security.learn.core.service.SmsService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
 import org.springframework.social.connect.web.SessionStrategy;
 import org.springframework.web.bind.ServletRequestUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.ServletWebRequest;
 
@@ -17,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -28,36 +36,52 @@ public class ValidateCodeController {
 
     public static final String SESSION_KEY = "SESSION_KEY_IMAGE_CODE";
 
+    public static final String SESSION_SMS_KEY = "SESSION_KEY_SYS_CODE";
+
     private SessionStrategy sessionStrategy = new HttpSessionSessionStrategy();
 
     @Autowired
-    private SecurityProperties securityProperties;
+    private ValidateCodeGenerator imageCodeGenerator;
 
     @Autowired
-    private ValidateCodeGenerator validateCodeGenerator;
+    private ValidateCodeGenerator smsCodeGenerator;
+
+    @Autowired
+    private SmsService smsService;
 
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        ImageCode imageCode = validateCodeGenerator.generate(request);
+        ImageCode imageCode = (ImageCode) imageCodeGenerator.generate(request);
         sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, imageCode);
         ImageIO.write(imageCode.getBufferedImage(), "JPEG", response.getOutputStream());
     }
 
-
-    /**
-     * 生成随机背景条纹
-     */
-    private Color getRandColor(int fc,int bc) {
-        Random random = new Random();
-        if (fc > 255) {
-            fc = 255;
-        }
-        if (bc > 255) {
-            bc = 255;
-        }
-        int r = fc + random.nextInt(bc - fc);
-        int g = fc + random.nextInt(bc - fc);
-        int b = fc + random.nextInt(bc - fc);
-        return new Color(r,g,b);
+    @GetMapping("/code/sms")
+    public Map<String, Object> createSmsCode(@RequestParam String phone, HttpServletRequest request){
+        ValidateCode smsCode = smsCodeGenerator.generate(request);
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_SMS_KEY, smsCode);
+        Map map = new HashMap();
+        map.put("code", "0");
+        map.put("msg", "短信发送成功");
+       /* try{
+            SendSmsResponse sendSmsResponse = smsService.sendSms(phone, smsCode.getCode());
+            if(StringUtils.equalsIgnoreCase(sendSmsResponse.getCode(), "ok")){
+                map.put("code", "0");
+                map.put("msg", "短信发送成功");
+                return map;
+            }else{
+                map.put("code", "500");
+                map.put("msg", "短信发送失败");
+                map.put("data", sendSmsResponse.getMessage());
+                return map;
+            }
+        }catch (ClientException e){
+            e.printStackTrace();
+            map.put("code", "500");
+            map.put("msg", "短信发送失败");
+            return map;
+        }*/
+       return map;
     }
+
 }

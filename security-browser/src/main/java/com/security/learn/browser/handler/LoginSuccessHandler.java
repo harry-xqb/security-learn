@@ -28,10 +28,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     public void onAuthenticationSuccess(HttpServletRequest request,
                                         HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
-        if(StringUtils.equals("html", RETURN_TYPE)){
+       /* if(StringUtils.equals("html", RETURN_TYPE)){
             super.setDefaultTargetUrl("/index");
             super.onAuthenticationSuccess(request, response, authentication);
-        }
+        }*/
         log.info("登录成功");
         response.setContentType("application/json;charset=UTF-8");
         Map map = new HashMap();

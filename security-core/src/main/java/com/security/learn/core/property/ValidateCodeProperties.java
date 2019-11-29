@@ -10,4 +10,8 @@ import lombok.Data;
 public class ValidateCodeProperties {
 
     private ImageCodeProperties image = new ImageCodeProperties();
+
+    private GeneralValidateCodeProperties sms = new GeneralValidateCodeProperties();
+
+    private ALiYunProperties aliyun = new ALiYunProperties();
 }

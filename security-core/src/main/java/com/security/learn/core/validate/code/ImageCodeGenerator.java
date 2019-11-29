@@ -3,6 +3,7 @@ package com.security.learn.core.validate.code;
 import com.security.learn.core.property.SecurityProperties;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.ServletRequestUtils;
 
 import javax.servlet.http.HttpServletRequest;
