@@ -3,6 +3,7 @@ package com.security.learn.core.validate.code;
 import lombok.Data;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -10,7 +11,7 @@ import java.time.LocalDateTime;
  * @date 2019/11/28 15:40
  */
 @Data
-public class ImageCode extends ValidateCode{
+public class ImageCode extends ValidateCode implements Serializable {
 
     private BufferedImage bufferedImage;
 
@@ -18,5 +19,6 @@ public class ImageCode extends ValidateCode{
         super(code, expireIn);
         this.bufferedImage = bufferedImage;
     }
+
 
 }

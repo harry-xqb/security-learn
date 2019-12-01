@@ -8,7 +8,7 @@ public class SecurityConstants {
 
     public static final String AUTHENTICATION_REQUIRE_PATH = "/authentication";
 
-    public static final String LOGIN_REDIRECT_PATH = "/login";
+    public static final String LOGIN_PATH = "/login.html";
 
     public static final String AUTHENTICATION_FORM_PATH = "/authentication/form";
 

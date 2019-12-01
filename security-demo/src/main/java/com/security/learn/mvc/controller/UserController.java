@@ -3,10 +3,15 @@ package com.security.learn.mvc.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import com.security.learn.mvc.dto.User;
 import com.security.learn.mvc.exception.UserException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.social.connect.web.ProviderSignInUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.ServletWebRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -21,6 +26,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/user")
 public class UserController {
+
+    @Autowired
+    private ProviderSignInUtils providerSignInUtils;
+
+    @PostMapping("/regist")
+    public String regist(User user, HttpServletRequest request){
+        // todo 注册用户逻辑
+        String name = user.getName();
+        providerSignInUtils.doPostSignUp(name,new ServletWebRequest(request));
+        return "注册成功";
+    }
 
     @GetMapping
     @JsonView(User.SimpleUserInfo.class)
@@ -74,5 +90,10 @@ public class UserController {
     @GetMapping("/server/error")
     public void error() throws Exception {
         throw new Exception("抛出了自定义的错误");
+    }
+
+    @GetMapping("/me")
+    public Authentication getMe(Authentication authentication){
+        return authentication;
     }
 }

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自定义注册页面</title>
+</head>
+<body>
+    <form action="/user/regist" method="post">
+        <h1>用户注册与绑定</h1>
+        <div>
+        <input type="text" autocomplete="off" placeholder="用户名" name="name"/>
+        </div>
+        <div>
+        <input type="text" autocomplete="off" placeholder="密码" name="password"/>
+        </div>
+        <button type="submit" class="enter-btn" name="type" value="regist">注册</button>
+        <button type="submit" class="enter-btn" name="type" value="bind">绑定</button>
+        <a href="/oauth/user">第三方用户信息</a>
+    </form>
+</body>
+</html>

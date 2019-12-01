@@ -18,6 +18,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
@@ -76,7 +77,7 @@ public class ImageCodeFilter extends OncePerRequestFilter implements Initializin
         if(!StringUtils.isNotBlank(codeInRequest)){
             throw new ValidateCodeException("验证码不能为空");
         }
-        ImageCode codeInSession = (ImageCode) sessionStrategy.getAttribute(new ServletWebRequest(request), ValidateCodeController.SESSION_KEY);
+        ValidateCode codeInSession = (ValidateCode) sessionStrategy.getAttribute(new ServletWebRequest(request), ValidateCodeController.SESSION_KEY);
         if(codeInSession == null){
             throw new ValidateCodeException("验证码不存在");
         }

@@ -16,6 +16,7 @@ import java.util.List;
  * create by： harry
  * date:  2019/11/24 0024 下午 3:09
  **/
+/*
 @Configuration
 public class WebConfig extends WebMvcConfigurationSupport{
 
@@ -43,3 +44,4 @@ public class WebConfig extends WebMvcConfigurationSupport{
         return filterRegistrationBean;
     }
 }
+*/

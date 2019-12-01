@@ -1,8 +1,10 @@
 package com.security.learn.core.validate.code;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -10,7 +12,8 @@ import java.time.LocalDateTime;
  * @date 2019/11/29 10:52
  */
 @Data
-public class ValidateCode {
+@AllArgsConstructor
+public class ValidateCode implements Serializable {
 
     private String code;
 

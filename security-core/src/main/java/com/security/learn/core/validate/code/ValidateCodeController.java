@@ -5,6 +5,7 @@ import com.aliyuncs.exceptions.ClientException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.security.learn.core.property.SecurityProperties;
 import com.security.learn.core.service.SmsService;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.social.connect.web.HttpSessionSessionStrategy;
@@ -52,7 +53,8 @@ public class ValidateCodeController {
     @GetMapping("/code/image")
     public void createCode(HttpServletRequest request, HttpServletResponse response) throws IOException {
         ImageCode imageCode = (ImageCode) imageCodeGenerator.generate(request);
-        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, imageCode);
+        ValidateCode code = new ValidateCode(imageCode.getCode(), imageCode.getExpireTime());
+        sessionStrategy.setAttribute(new ServletWebRequest(request), SESSION_KEY, code);
         ImageIO.write(imageCode.getBufferedImage(), "JPEG", response.getOutputStream());
     }
 

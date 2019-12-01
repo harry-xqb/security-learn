@@ -10,4 +10,6 @@ import lombok.Data;
 public class BrowserProperties {
 
     private String loginPage = "login.html";
+
+    private String signUpUrl = "/signUp.html";
 }
